@@ -1,22 +1,28 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
 
-require("dotenv").config();
+require("dotenv").config()
 
-const app = express();
-const PORT = process.env.PORT || 8000;
+const app = express()
+const PORT = process.env.PORT || 8000
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 // Connect to mongodb
-const URI = process.env.MONGODB_URL;
+const URI = process.env.MONGODB_URL
 mongoose.connect(URI, (err) => {
     if (err) throw err
     console.log("Connected to MongoDB")
-});
+})
+
+app.use("/", require("./routes/list"))
+
+app.get("/auth/callback", (req, res) => {
+    res.send(req.query.code)
+})
 
 app.listen(PORT, (err) => {
     if (err) {
