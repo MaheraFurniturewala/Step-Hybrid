@@ -4,13 +4,20 @@ const readline = require("readline")
 const SCOPES = [
     "https://www.googleapis.com/auth/classroom.courses.readonly",
     "https://www.googleapis.com/auth/classroom.rosters.readonly",
+    "https://www.googleapis.com/auth/classroom.coursework.me",
     "https://www.googleapis.com/auth/classroom.coursework.me.readonly",
+    "https://www.googleapis.com/auth/classroom.coursework.students",
+    "https://www.googleapis.com/auth/classroom.coursework.students.readonly",
+    "https://www.googleapis.com/auth/classroom.announcements",
     "https://www.googleapis.com/auth/classroom.announcements.readonly",
+    "https://www.googleapis.com/auth/classroom.guardianlinks.students.readonly",
+    "https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly",
+    "https://www.googleapis.com/auth/classroom.topics",
     "https://www.googleapis.com/auth/classroom.push-notifications"
 ]
 const TOKEN_PATH = "token.json"
 
-module.exports = function getNewToken(oAuth2Client, callback) {
+module.exports = function getNewToken(oAuth2Client, callback, req, res) {
     const authUrl = oAuth2Client.generateAuthUrl({
         access_type: "offline",
         scope: SCOPES
@@ -30,7 +37,7 @@ module.exports = function getNewToken(oAuth2Client, callback) {
                 if (err) return console.error(err)
                 console.log("Token stored to", TOKEN_PATH)
             })
-            callback(oAuth2Client)
+            callback(oAuth2Client, req, res)
         })
     })
 }

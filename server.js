@@ -12,6 +12,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
+app.use(express.static(__dirname + "/assets"))
+
 // Connect to mongodb
 const URI = process.env.MONGODB_URL
 mongoose.connect(URI, (err) => {
@@ -19,8 +21,14 @@ mongoose.connect(URI, (err) => {
     console.log("Connected to MongoDB")
 })
 
+// set up the view engine
+app.set("view engine", "ejs")
+app.set("views", "./views")
+
+app.use("/", require("./routes/index"))
 app.use("/", require("./routes/list"))
 app.use("/", require("./routes/notifs"))
+app.use('/getCourseWork', require("./routes/getCourseWork"))
 
 app.get("/auth/callback", (req, res) => {
     res.send(req.query.code)
