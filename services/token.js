@@ -1,7 +1,13 @@
 const fs = require("fs")
 const readline = require("readline")
 
-const SCOPES = ["https://www.googleapis.com/auth/classroom.courses.readonly"]
+const SCOPES = [
+    "https://www.googleapis.com/auth/classroom.courses.readonly",
+    "https://www.googleapis.com/auth/classroom.rosters.readonly",
+    "https://www.googleapis.com/auth/classroom.coursework.me.readonly",
+    "https://www.googleapis.com/auth/classroom.announcements.readonly",
+    "https://www.googleapis.com/auth/classroom.push-notifications"
+]
 const TOKEN_PATH = "token.json"
 
 module.exports = function getNewToken(oAuth2Client, callback) {
