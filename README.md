@@ -4,7 +4,7 @@
 
 ## For Replicating the service:
 
-### Cloning step hybrid `can-merge`
+### Cloning step hybrid 
 
 In your local clone, create a `.env` file and add:
 
