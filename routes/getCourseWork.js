@@ -16,6 +16,7 @@ function getCourseWork(auth, req, res) {
             const courseWork = r.data.courseWork;
 
             if (courseWork && courseWork.length) {
+                console.log(courseWork);
                 res.json({ msg: courseWork });
 
             } else {
@@ -26,6 +27,7 @@ function getCourseWork(auth, req, res) {
 }
 
 router.get("/", async (req, res) => {
+    console.log("callled");
     authorize(getCourseWork, req, res)
 })
 

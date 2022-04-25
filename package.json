@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@google-cloud/pubsub": "^2.19.0",
+    "@vonage/server-sdk": "^2.10.11",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",

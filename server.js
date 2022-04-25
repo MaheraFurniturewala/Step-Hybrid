@@ -28,7 +28,8 @@ app.set("views", "./views")
 app.use("/", require("./routes/index"))
 app.use("/", require("./routes/list"))
 app.use("/", require("./routes/notifs"))
-app.use('/getCourseWork', require("./routes/getCourseWork"))
+app.use("/", require("./routes/login"))
+app.use("/getCourseWork", require("./routes/getCourseWork"))
 
 app.get("/auth/callback", (req, res) => {
     res.send(req.query.code)

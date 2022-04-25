@@ -2,7 +2,6 @@ const { google } = require("googleapis")
 const fs = require("fs")
 const getNewToken = require("./token")
 
-const TOKEN_PATH = "token.json"
 require("dotenv").config()
 
 module.exports = async function authorize(callback, req, res) {
@@ -12,7 +11,7 @@ module.exports = async function authorize(callback, req, res) {
         process.env.REDIRECT_URI
     )
     // Check if we have previously stored a token.
-    fs.readFile(TOKEN_PATH, (err, token) => {
+    fs.readFile(process.env.TOKEN_PATH, (err, token) => {
         if (err) return getNewToken(oAuth2Client, callback, req, res)
         oAuth2Client.setCredentials(JSON.parse(token))
         callback(oAuth2Client, req, res)

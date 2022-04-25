@@ -25,7 +25,7 @@ function listCourses(auth) {
     )
 }
 
-router.get("/", (req, res) => {
+router.get("/list", (req, res) => {
     authorize(listCourses)
 })
 

@@ -1,21 +1,8 @@
 const fs = require("fs")
 const readline = require("readline")
+const SCOPES = require("./scopes")
 
-const SCOPES = [
-    "https://www.googleapis.com/auth/classroom.courses.readonly",
-    "https://www.googleapis.com/auth/classroom.rosters.readonly",
-    "https://www.googleapis.com/auth/classroom.coursework.me",
-    "https://www.googleapis.com/auth/classroom.coursework.me.readonly",
-    "https://www.googleapis.com/auth/classroom.coursework.students",
-    "https://www.googleapis.com/auth/classroom.coursework.students.readonly",
-    "https://www.googleapis.com/auth/classroom.announcements",
-    "https://www.googleapis.com/auth/classroom.announcements.readonly",
-    "https://www.googleapis.com/auth/classroom.guardianlinks.students.readonly",
-    "https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly",
-    "https://www.googleapis.com/auth/classroom.topics",
-    "https://www.googleapis.com/auth/classroom.push-notifications"
-]
-const TOKEN_PATH = "token.json"
+require("dotenv").config()
 
 module.exports = function getNewToken(oAuth2Client, callback, req, res) {
     const authUrl = oAuth2Client.generateAuthUrl({
@@ -33,10 +20,14 @@ module.exports = function getNewToken(oAuth2Client, callback, req, res) {
             if (err) return console.error("Error retrieving access token", err)
             oAuth2Client.setCredentials(token)
             // Store the token to disk for later program executions
-            fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-                if (err) return console.error(err)
-                console.log("Token stored to", TOKEN_PATH)
-            })
+            fs.writeFile(
+                process.env.TOKEN_PATH,
+                JSON.stringify(token),
+                (err) => {
+                    if (err) return console.error(err)
+                    console.log("Token stored to", process.env.TOKEN_PATH)
+                }
+            )
             callback(oAuth2Client, req, res)
         })
     })
